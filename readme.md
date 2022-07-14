@@ -5,7 +5,7 @@
 Request body:
 ```
 {
-  "email": " "
+  "email": "youremail@mail.com"
 }
 ```
 2. `GET /api/secret` - wymaga autoryzacji tokenem z pierwszego endpointa i zwraca {"secret": "someSecret"}, gdzie wartość someSecret jest konfigurowalna w pliku .env
