@@ -1,6 +1,6 @@
 # Prosta backendowa aplikacja Node.js w Express
 
-## Aplikacja zawiera dwa endpointy:
+### Aplikacja zawiera dwa endpointy:
 1. `POST /api/auth` - przyjmuje jako parametr adres e-mail, weryfikuje jego poprawność składniową i zwraca w odpowiedzi wygenerowany unikalny token.
 Request body:
 ```
