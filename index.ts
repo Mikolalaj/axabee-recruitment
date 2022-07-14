@@ -1,5 +1,6 @@
 import 'dotenv/config'
 import express, { Express, Request, Response } from 'express';
+import logger from 'morgan';
 import { createToken, verifyToken } from './utils.js';
 
 const port = process.env.PORT || 8000;
@@ -7,6 +8,7 @@ const port = process.env.PORT || 8000;
 const app: Express = express();
 
 app.use(express.json());
+app.use(logger(':date :method :url :status :response-time ms'));
 
 app.get('/', (req: Request, res: Response) => {
     res.send('Available endpoints: /api/auth and /api/secret');
