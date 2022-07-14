@@ -1,24 +1,15 @@
-import 'dotenv/config'
-import express, { Express, Request, Response } from 'express';
-import logger from 'morgan';
-import { createToken, verifyToken } from './jwtUtils.js';
+import express, { Express, Request, Response, Router } from 'express';
+import { createToken, verifyToken } from '../jwtUtils.js';
 import jwt from 'jsonwebtoken';
 const { TokenExpiredError, JsonWebTokenError } = jwt;
 
-const app: Express = express();
-
-app.use(express.json());
-app.use(logger(':date :method :url :status :response-time ms'));
-
-app.get('/', (req: Request, res: Response) => {
-    res.send('Available endpoints: /api/auth and /api/secret');
-});
+const router: Router = express.Router();
 
 interface TypedRequestBody<T> extends Express.Request {
     body: T
 }
 
-app.post('/api/auth', (req: TypedRequestBody<{ email: string }>, res: Response) => {
+router.post('/auth', (req: TypedRequestBody<{ email: string }>, res: Response) => {
     const email = req.body.email
 
     if (!email) {
@@ -49,7 +40,7 @@ app.post('/api/auth', (req: TypedRequestBody<{ email: string }>, res: Response) 
     }
 });
 
-app.get('/api/secret', (req: Request, res: Response) => {
+router.get('/secret', (req: Request, res: Response) => {
     const bearerToken = req.headers.authorization
 
     if (!bearerToken) {
@@ -88,8 +79,4 @@ app.get('/api/secret', (req: Request, res: Response) => {
 
 });
 
-const port = process.env.PORT || 8000;
-
-app.listen(port, () => {
-    console.log(`⚡️Server is running at http://localhost:${port}`);
-});
+export default router;
