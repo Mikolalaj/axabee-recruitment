@@ -2,6 +2,8 @@ import 'dotenv/config'
 import express, { Express, Request, Response } from 'express';
 import logger from 'morgan';
 import { createToken, verifyToken } from './utils.js';
+import jwt from 'jsonwebtoken';
+const { TokenExpiredError, JsonWebTokenError } = jwt;
 
 const port = process.env.PORT || 8000;
 
@@ -65,10 +67,21 @@ app.get('/api/secret', (req: Request, res: Response) => {
             'secret': process.env.SECRET
         })
     } catch (error) {
-        res.status(401).json({
-            error: 'Authentication failed',
-            message: 'Your token is invalid'
-        })
+        if (error instanceof TokenExpiredError) {
+            res.status(401).json({
+                error: 'Authentication failed',
+                message: 'Your token is expired'
+            })
+        }
+        else if (error instanceof JsonWebTokenError) {
+            res.status(401).json({
+                error: 'Authentication failed',
+                message: 'Your token is invalid'
+            })
+        }
+        else {
+            throw error
+        }
     }
 
 });
