@@ -15,8 +15,9 @@ Przy każdym zapytaniu aplikacja loguje czas, adres odpytywanego endpointa i sta
 
 ### Bonusowe pytania:
 1. W jaki sposób można by ograniczyć czasowo ważność tokenu?
- - Podczas generowania tokenu JWT w funkcji `jwt.sign()` można użyć parametru `expiresIn` do określenia czasu ważności tokenu. Domyślnie jest to 24 godziny, ale można to zmienić dodając JWT_EXPIRATION_TIME do pliku .env (np. JWT_EXPIRATION_TIME=1h)
+  - Podczas generowania tokenu JWT w funkcji `jwt.sign()` można użyć parametru `expiresIn` do określenia czasu ważności tokenu. Domyślnie jest to 24 godziny, ale można to zmienić dodając JWT_EXPIRATION_TIME do pliku .env (np. JWT_EXPIRATION_TIME=1h)
 2. W jaki sposób można by umożliwić unieważnienie wszystkich wygenerowanych do tej pory tokenów?
+  - Używając Json Web Token nie można w łatwy sposób unieważnić wszystke wygenerowane do tej pory tokeny. Można ewentualnie ustalić nowy JWT_SECRET w pliku .env (wymaga to zresetowania serwera) albo ustawić niedługi JWT_EXPIRATION_TIME
 
 ## Uruchomienie aplikacji
 1. `npm install`
