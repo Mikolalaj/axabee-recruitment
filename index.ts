@@ -5,8 +5,6 @@ import { createToken, verifyToken } from './jwtUtils.js';
 import jwt from 'jsonwebtoken';
 const { TokenExpiredError, JsonWebTokenError } = jwt;
 
-const port = process.env.PORT || 8000;
-
 const app: Express = express();
 
 app.use(express.json());
@@ -16,8 +14,12 @@ app.get('/', (req: Request, res: Response) => {
     res.send('Available endpoints: /api/auth and /api/secret');
 });
 
-app.post('/api/auth', (req: Request, res: Response) => {
-    const email = req.body.email as string
+interface TypedRequestBody<T> extends Express.Request {
+    body: T
+}
+
+app.post('/api/auth', (req: TypedRequestBody<{ email: string }>, res: Response) => {
+    const email = req.body.email
 
     if (!email) {
         res.status(400).json({
@@ -48,7 +50,7 @@ app.post('/api/auth', (req: Request, res: Response) => {
 });
 
 app.get('/api/secret', (req: Request, res: Response) => {
-    const bearerToken = req.headers.authorization as string
+    const bearerToken = req.headers.authorization
 
     if (!bearerToken) {
         res.status(400).json({
@@ -86,6 +88,8 @@ app.get('/api/secret', (req: Request, res: Response) => {
 
 });
 
+const port = process.env.PORT || 8000;
+
 app.listen(port, () => {
-    console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
+    console.log(`⚡️Server is running at http://localhost:${port}`);
 });
