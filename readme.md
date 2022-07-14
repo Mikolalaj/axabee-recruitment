@@ -21,5 +21,5 @@ Przy każdym zapytaniu aplikacja loguje czas, adres odpytywanego endpointa i sta
 
 ## Uruchomienie aplikacji
 1. `npm install`
-2. Stwórz plik .env w katalogu głównym projektu i uzupełnij pola PORT, SECRET_JWT i SECRET
+2. Stwórz plik .env w katalogu głównym projektu i uzupełnij pola PORT, SECRET_JWT, SECRET i opcjonalnie JWT_EXPIRATION_TIME
 3. `npm run dev`
