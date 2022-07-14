@@ -1,7 +1,7 @@
 import 'dotenv/config'
 import express, { Express, Request, Response } from 'express';
 import logger from 'morgan';
-import { createToken, verifyToken } from './utils.js';
+import { createToken, verifyToken } from './jwtUtils.js';
 import jwt from 'jsonwebtoken';
 const { TokenExpiredError, JsonWebTokenError } = jwt;
 
