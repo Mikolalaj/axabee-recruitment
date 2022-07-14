@@ -4,7 +4,7 @@ function createToken(email: string) {
     return jwt.sign(
         { email },
         process.env.SECRET_JWT,
-        { algorithm: 'HS256', expiresIn: '24h' }
+        { algorithm: 'HS256', expiresIn: `${process.env.JWT_EXPIRATION_TIME}` || '24h' }
     );
 }
 

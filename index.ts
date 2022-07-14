@@ -33,7 +33,7 @@ app.post('/api/auth', (req: Request, res: Response) => {
         res.status(200).json({
             message: 'Authenticated',
             token: token,
-            tokenExpiration: '24h',
+            tokenExpiration: `${process.env.JWT_EXPIRATION_TIME}` || '24h',
             tokenType: 'Bearer'
         })
     }
