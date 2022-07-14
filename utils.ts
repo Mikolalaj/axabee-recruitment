@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 
-function createToken(email: string) {
+function createToken(email: string): string {
     return jwt.sign(
         { email },
         process.env.SECRET_JWT,
