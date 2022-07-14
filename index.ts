@@ -14,6 +14,12 @@ app.get('/', (req: Request, res: Response) => {
 
 app.post('/api/auth', (req: Request, res: Response) => {
     const email = req.body.email as string;
+
+    if (!email) {
+        res.status(400).send('This endpoint requires an email passed in request body.');
+        return;
+    }
+
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
     if (emailRegex.test(email)) {
@@ -30,6 +36,12 @@ app.post('/api/auth', (req: Request, res: Response) => {
 
 app.get('/api/secret', (req: Request, res: Response) => {
     const bearerToken = req.headers.authorization as string;
+
+    if (!bearerToken) {
+        res.status(400).send('This endpoint requires an bearer token passed in request headers.');
+        return;
+    }
+
     const token = bearerToken.replace('Bearer ', '');
 
     try {
